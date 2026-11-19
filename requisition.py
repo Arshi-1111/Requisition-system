@@ -45,3 +45,39 @@ def respond_requisition(self, decision):
                 self.status = "Pending"
                 self.approval_reference = "Not available"
         return self.status
+
+def display_requisition(self):
+        print("Date:", self.date.strftime("%d/%m/%Y"))
+        print("Requisition ID:", self.requisition_id)
+        print("Staff ID:", self.staff_id)
+        print("Staff Name:", self.staff_name)
+        if self.total == int(self.total):
+            print("Total: $" + str(int(self.total)))
+        else:
+            print("Total: $" + str(self.total))
+        print("Status:", self.status)
+        print("Approval Reference Number:", self.approval_reference)
+        print()
+
+def requisition_statistics(self, requisitions):
+        total_submitted = len(requisitions)
+        approved = 0
+        pending = 0
+        not_approved = 0
+
+        for r in requisitions:
+            if r.status == "Approved":
+                approved = approved + 1
+            elif r.status == "Pending":
+                pending = pending + 1
+            elif r.status == "Not approved":
+                not_approved = not_approved + 1
+
+        print("Statistics:")
+        print("Displaying the Requisition Statistics")
+        print("The total number of requisitions submitted:", total_submitted)
+        print("The total number of approved requisitions:", approved)
+        print("The total number of pending requisitions:", pending)
+        print("The total number of not approved requisitions:", not_approved)
+
+        return total_submitted, approved, pending, not_approved
