@@ -16,3 +16,9 @@ class Requisition:
         self.total = 0.0
         self.status = "Pending"
         self.approval_reference = "Not available"
+
+def add_requisition_items(self, items):
+        for item_name, item_price in items:
+            self.items.append((item_name, item_price))
+            self.total = self.total + item_price
+        return self.total
