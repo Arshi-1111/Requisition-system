@@ -22,3 +22,26 @@ def add_requisition_items(self, items):
             self.items.append((item_name, item_price))
             self.total = self.total + item_price
         return self.total
+
+def approve_requisition(self):
+        if self.total < 500:
+            self.status = "Approved"
+            self.approval_reference = self.staff_id + self.requisition_id[-3:]
+        else:
+            self.status = "Pending"
+            self.approval_reference = "Not available"
+        return self.status
+
+def respond_requisition(self, decision):
+        clean_decision = decision.strip().capitalize()
+        if self.status == "Pending":
+            if clean_decision == "Approved":
+                self.status = "Approved"
+                self.approval_reference = self.staff_id + self.requisition_id[-3:]
+            elif clean_decision == "Not approved":
+                self.status = "Not approved"
+                self.approval_reference = "Not available"
+            elif clean_decision == "Pending":
+                self.status = "Pending"
+                self.approval_reference = "Not available"
+        return self.status
