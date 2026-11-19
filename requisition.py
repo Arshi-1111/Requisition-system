@@ -81,3 +81,54 @@ def requisition_statistics(self, requisitions):
         print("The total number of not approved requisitions:", not_approved)
 
         return total_submitted, approved, pending, not_approved
+
+requisitions = []
+
+num = int(input("How many requisitions do you want to enter? "))
+
+for i in range(num):
+    print("\nEnter your information:")
+    date_entry = input("Enter a date in DD/MM/YYYY format: ").strip()
+    day, month, year = map(int, date_entry.split("/"))
+    req_date = datetime.date(year, month, day)
+
+    staff_id = input("Staff ID: ").strip()
+    staff_name = input("Staff Name: ").strip()
+
+    req = Requisition(req_date, staff_id, staff_name)
+    print("Requisition ID:", req.requisition_id)
+    print("Add items:")
+
+    items = []
+    while True:
+        item_name = input("Enter item name: ").strip()
+        item_price = float(input("Enter price ($): "))
+        items.append((item_name, item_price))
+
+        answer = input("Add another item (yes/no): ").strip().lower()
+        if answer == "no":
+            break
+
+    req.add_requisition_items(items)
+    if req.total == int(req.total):
+        print("Total: $" + str(int(req.total)))
+    else:
+        print("Total: $" + str(req.total))
+    req.approve_requisition()
+    requisitions.append(req)
+
+auto_decisions = ["Pending", "Not approved", "Approved"]
+pending_index = 0
+
+for req in requisitions:
+    if req.status == "Pending":
+        decision = auto_decisions[pending_index % len(auto_decisions)]
+        req.respond_requisition(decision)
+        pending_index = pending_index + 1
+
+print("\nOutput:\n")
+for req in requisitions:
+    req.display_requisition()
+
+if len(requisitions) > 0:
+    requisitions[0].requisition_statistics(requisitions)
